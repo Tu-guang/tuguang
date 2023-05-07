@@ -3,7 +3,7 @@ package com.tuguang.common;
 /**
  * 返回工具类
  *
- * @author https://github.com/liyupi
+ * @author
  */
 public class ResultUtils {
 
