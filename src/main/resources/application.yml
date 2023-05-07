@@ -2,3 +2,9 @@ server:
   port: 8080
   servlet:
     context-path: /api
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/tuguang
+    username: root
+    password: 123456
