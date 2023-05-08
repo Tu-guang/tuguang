@@ -18,10 +18,12 @@ import com.tuguang.model.dto.UserUpdateRequest;
 import com.tuguang.model.entity.User;
 import com.tuguang.model.vo.UserVO;
 import com.tuguang.service.UserService;
+
 import java.util.List;
 import java.util.stream.Collectors;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -168,15 +170,18 @@ public class UserController {
      */
     @PostMapping("/update")
     @AuthCheck(mustRole = UserConstant.ADMIN_ROLE)
-    public BaseResponse<Boolean> updateUser(@RequestBody UserUpdateRequest userUpdateRequest,
-                                            HttpServletRequest request) {
+    public BaseResponse<User> updateUser(@RequestBody UserUpdateRequest userUpdateRequest,
+                                         HttpServletRequest request) {
         if (userUpdateRequest == null || userUpdateRequest.getId() == null) {
             throw new BusinessException(ErrorCode.PARAMS_ERROR);
         }
+
         User user = new User();
         BeanUtils.copyProperties(userUpdateRequest, user);
-        boolean result = userService.updateById(user);
-        return ResultUtils.success(result);
+//        boolean result = userService.updateById(user);
+//        return ResultUtils.success(result);
+        User user_t = userService.updateUser(user,request);
+        return ResultUtils.success(user_t);
     }
 
     /**

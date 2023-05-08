@@ -43,6 +43,14 @@ public interface UserService extends IService<User> {
     User getLoginUser(HttpServletRequest request);
 
     /**
+     * 更新用户
+     *
+     * @param request
+     * @return
+     */
+    User updateUser(User user,HttpServletRequest request);
+
+    /**
      * 是否为管理员
      *
      * @param request

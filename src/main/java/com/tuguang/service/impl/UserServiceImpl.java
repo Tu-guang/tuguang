@@ -10,8 +10,10 @@ import com.tuguang.exception.BusinessException;
 import com.tuguang.mapper.UserMapper;
 import com.tuguang.model.entity.User;
 import com.tuguang.service.UserService;
+
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
@@ -157,5 +159,45 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
         // 移除登录态
         request.getSession().removeAttribute(USER_LOGIN_STATE);
         return true;
+    }
+
+    @Override
+    public User updateUser(User user, HttpServletRequest request) {
+        // 1. 校验
+        String userAccount = user.getUserAccount();
+        String userPassword = user.getUserPassword();
+        if (StringUtils.isAnyBlank(userAccount, userPassword)) {
+            throw new BusinessException(ErrorCode.PARAMS_ERROR, "参数为空");
+        }
+        if (userAccount.length() < 4) {
+            throw new BusinessException(ErrorCode.PARAMS_ERROR, "账号错误");
+        }
+        if (userPassword.length() < 8) {
+            throw new BusinessException(ErrorCode.PARAMS_ERROR, "密码错误");
+        }
+        // 2. 加密
+        String encryptPassword = DigestUtils.md5DigestAsHex((SALT + userPassword).getBytes());
+        // 查询用户是否存在
+        QueryWrapper<User> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("userAccount", userAccount);
+        user = userMapper.selectOne(queryWrapper);
+        user.setUserPassword(encryptPassword);
+        // 用户不存在
+        if (user == null) {
+            log.info("user login failed, userAccount cannot match userPassword");
+            throw new BusinessException(ErrorCode.PARAMS_ERROR, "用户不存在");
+        }
+        // 3. 记录用户的登录态
+        boolean updateResult = this.saveOrUpdate(user);
+        if (!updateResult) {
+            throw new BusinessException(ErrorCode.SYSTEM_ERROR, "更新失败，数据库错误");
+        }
+        /*
+         * 更新用户信息之后，更新用户状态，这里不能这样设置
+         * */
+
+        //   System.out.println("USER_LOGIN_STATE:"+request.getSession().getAttribute(USER_LOGIN_STATE));
+        //   request.getSession().setAttribute(USER_LOGIN_STATE, user);
+        return user;
     }
 }
