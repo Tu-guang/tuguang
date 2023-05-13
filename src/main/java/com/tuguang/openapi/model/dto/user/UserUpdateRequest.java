@@ -1,15 +1,20 @@
-package com.tuguang.openapi.model.dto;
+package com.tuguang.openapi.model.dto.user;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import java.io.Serializable;
 import lombok.Data;
 
 /**
- * 用户创建请求
+ * 用户更新请求
  *
  * @author
  */
 @Data
-public class InterfaceInfoAddRequest implements Serializable {
+public class UserUpdateRequest implements Serializable {
+    /**
+     * id
+     */
+    private Long id;
 
     /**
      * 用户昵称
@@ -41,5 +46,6 @@ public class InterfaceInfoAddRequest implements Serializable {
      */
     private String userPassword;
 
+    @TableField(exist = false)
     private static final long serialVersionUID = 1L;
 }

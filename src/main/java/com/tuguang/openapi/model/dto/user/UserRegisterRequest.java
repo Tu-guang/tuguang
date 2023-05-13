@@ -1,4 +1,4 @@
-package com.tuguang.openapi.model.dto;
+package com.tuguang.openapi.model.dto.user;
 
 import java.io.Serializable;
 import lombok.Data;

@@ -1,22 +1,22 @@
-package com.tuguang.openapi.model.entity;
+package com.tuguang.openapi.model.dto.interfaceInfo;
 
-import com.baomidou.mybatisplus.annotation.*;
+import com.tuguang.openapi.common.PageRequest;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import java.io.Serializable;
-import java.util.Date;
-import lombok.Data;
 
 /**
- * 接口信息
- * @TableName interface_info
+ * 接口查询请求
+ *
+ * @author
  */
-@TableName(value ="interface_info")
+@EqualsAndHashCode(callSuper = true)
 @Data
-public class InterfaceInfo implements Serializable {
+public class InterfaceInfoQueryRequest extends PageRequest implements Serializable {
     /**
      * 主键
      */
-    @TableId(type = IdType.AUTO)
     private Long id;
 
     /**
@@ -64,22 +64,4 @@ public class InterfaceInfo implements Serializable {
      */
     private Long userId;
 
-    /**
-     * 创建时间
-     */
-    private Date createTime;
-
-    /**
-     * 更新时间
-     */
-    private Date updateTime;
-
-    /**
-     * 是否删除(0-米剧，1-已删)
-     */
-    @TableLogic
-    private Integer isDelete;
-
-    @TableField(exist = false)
-    private static final long serialVersionUID = 1L;
 }

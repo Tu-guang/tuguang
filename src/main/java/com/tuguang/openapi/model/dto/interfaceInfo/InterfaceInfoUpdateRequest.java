@@ -1,22 +1,20 @@
-package com.tuguang.openapi.model.entity;
+package com.tuguang.openapi.model.dto.interfaceInfo;
 
-import com.baomidou.mybatisplus.annotation.*;
-
-import java.io.Serializable;
-import java.util.Date;
+import com.baomidou.mybatisplus.annotation.TableField;
 import lombok.Data;
 
+import java.io.Serializable;
+
 /**
- * 接口信息
- * @TableName interface_info
+ * 用户更新请求
+ *
+ * @author
  */
-@TableName(value ="interface_info")
 @Data
-public class InterfaceInfo implements Serializable {
+public class InterfaceInfoUpdateRequest implements Serializable {
     /**
      * 主键
      */
-    @TableId(type = IdType.AUTO)
     private Long id;
 
     /**
@@ -58,28 +56,6 @@ public class InterfaceInfo implements Serializable {
      * 请求类型
      */
     private String method;
-
-    /**
-     * 创建人
-     */
-    private Long userId;
-
-    /**
-     * 创建时间
-     */
-    private Date createTime;
-
-    /**
-     * 更新时间
-     */
-    private Date updateTime;
-
-    /**
-     * 是否删除(0-米剧，1-已删)
-     */
-    @TableLogic
-    private Integer isDelete;
-
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;
 }

@@ -1,4 +1,4 @@
-package com.tuguang.openapi.model.dto;
+package com.tuguang.openapi.model.dto.user;
 import com.tuguang.openapi.common.PageRequest;
 import java.io.Serializable;
 import java.util.Date;
