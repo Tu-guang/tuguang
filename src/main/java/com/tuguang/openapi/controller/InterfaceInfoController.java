@@ -12,11 +12,11 @@ import com.tuguang.openapi.constant.CommonConstant;
 import com.tuguang.openapi.constant.UserConstant;
 import com.tuguang.openapi.exception.BusinessException;
 import com.tuguang.openapi.model.dto.interfaceInfo.InterfaceInfoAddRequest;
+import com.tuguang.openapi.model.vo.InterfaceInfoVO;
 import com.tuguang.openapi.model.dto.interfaceInfo.InterfaceInfoQueryRequest;
 import com.tuguang.openapi.model.dto.interfaceInfo.InterfaceInfoUpdateRequest;
 import com.tuguang.openapi.model.entity.InterfaceInfo;
 import com.tuguang.openapi.model.entity.User;
-import com.tuguang.openapi.model.vo.UserVO;
 import com.tuguang.openapi.service.InterfaceInfoService;
 import com.tuguang.openapi.service.UserService;
 import lombok.extern.slf4j.Slf4j;
@@ -121,7 +121,7 @@ public class InterfaceInfoController {
      * @return
      */
     @PostMapping("/get")
-    @AuthCheck(mustRole = UserConstant.ADMIN_ROLE)
+//    @AuthCheck(mustRole = UserConstant.ADMIN_ROLE)
     public BaseResponse<InterfaceInfo> getInterfaceInfoById(int id, HttpServletRequest request) {
         if (id <= 0) {
             throw new BusinessException(ErrorCode.PARAMS_ERROR);
@@ -152,15 +152,15 @@ public class InterfaceInfoController {
     }
 
     /**
-     * 分页获取接口列表
+     * 前台分页获取接口列表
      *
      * @param interfaceInfoQueryRequest
      * @param request
      * @return
      */
-    @PostMapping("/list/page")
-    @AuthCheck(mustRole = UserConstant.ADMIN_ROLE)
-    public BaseResponse<Page<InterfaceInfo>> listInterfaceInfoByPage(InterfaceInfoQueryRequest interfaceInfoQueryRequest, HttpServletRequest request) {
+    @PostMapping("/list/querypage")
+//    @AuthCheck(mustRole = UserConstant.ADMIN_ROLE)
+    public BaseResponse<Page<InterfaceInfoVO>> listInterfaceInfoByQueryPage(@RequestBody InterfaceInfoQueryRequest interfaceInfoQueryRequest, HttpServletRequest request) {
         if (interfaceInfoQueryRequest == null) {
             throw new BusinessException(ErrorCode.PARAMS_ERROR);
         }
@@ -168,6 +168,8 @@ public class InterfaceInfoController {
         BeanUtils.copyProperties(interfaceInfoQueryRequest, interfaceInfoQuery);
         long current = interfaceInfoQueryRequest.getCurrent();
         long size = interfaceInfoQueryRequest.getPageSize();
+        System.out.println("current:" + current);
+        System.out.println("size:" + size);
         String sortField = interfaceInfoQueryRequest.getSortField();
         String sortOrder = interfaceInfoQueryRequest.getSortOrder();
         String description = interfaceInfoQuery.getDescription();
@@ -178,8 +180,52 @@ public class InterfaceInfoController {
             throw new BusinessException(ErrorCode.PARAMS_ERROR);
         }
         QueryWrapper<InterfaceInfo> queryWrapper = new QueryWrapper<>(interfaceInfoQuery);
-        queryWrapper.like(StringUtils.isNotBlank(description),"description",description);
-        queryWrapper.orderBy(StringUtils.isNotBlank(sortField),sortOrder.equals(CommonConstant.SORT_ORDER_ASC),sortField);
+        queryWrapper.like(StringUtils.isNotBlank(description), "description", description);
+        queryWrapper.orderBy(StringUtils.isNotBlank(sortField), sortOrder.equals(CommonConstant.SORT_ORDER_ASC), sortField);
+        Page<InterfaceInfo> interfaceInfoPages = interfaceInfoService.page(new Page<>(current, size), queryWrapper);
+
+        //分页拷贝
+        Page<InterfaceInfoVO> interfaceInfoVOPage=new PageDTO<>(interfaceInfoPages.getCurrent(),interfaceInfoPages.getSize(),interfaceInfoPages.getTotal());
+        List<InterfaceInfoVO> InterfaceInfoPageList = interfaceInfoPages.getRecords().stream().map(interfaceInfoPage -> {
+            InterfaceInfoVO interfaceInfoVO= new InterfaceInfoVO();
+            BeanUtils.copyProperties(interfaceInfoPage, interfaceInfoVO);
+            return interfaceInfoVO;
+        }).collect(Collectors.toList());
+        interfaceInfoVOPage.setRecords(InterfaceInfoPageList);
+        return ResultUtils.success(interfaceInfoVOPage);
+    }
+
+    /**
+     * 分页获取接口列表
+     *
+     * @param interfaceInfoQueryRequest
+     * @param request
+     * @return
+     */
+    @PostMapping("/list/page")
+    @AuthCheck(mustRole = UserConstant.ADMIN_ROLE)
+    public BaseResponse<Page<InterfaceInfo>> listInterfaceInfoByPage(@RequestBody InterfaceInfoQueryRequest interfaceInfoQueryRequest, HttpServletRequest request) {
+        if (interfaceInfoQueryRequest == null) {
+            throw new BusinessException(ErrorCode.PARAMS_ERROR);
+        }
+        InterfaceInfo interfaceInfoQuery = new InterfaceInfo();
+        BeanUtils.copyProperties(interfaceInfoQueryRequest, interfaceInfoQuery);
+        long current = interfaceInfoQueryRequest.getCurrent();
+        long size = interfaceInfoQueryRequest.getPageSize();
+        System.out.println("current:" + current);
+        System.out.println("size:" + size);
+        String sortField = interfaceInfoQueryRequest.getSortField();
+        String sortOrder = interfaceInfoQueryRequest.getSortOrder();
+        String description = interfaceInfoQuery.getDescription();
+        // description 需支持模期搜索
+        interfaceInfoQuery.setDescription(null);
+        // 限制爬虫
+        if (size > 50) {
+            throw new BusinessException(ErrorCode.PARAMS_ERROR);
+        }
+        QueryWrapper<InterfaceInfo> queryWrapper = new QueryWrapper<>(interfaceInfoQuery);
+        queryWrapper.like(StringUtils.isNotBlank(description), "description", description);
+        queryWrapper.orderBy(StringUtils.isNotBlank(sortField), sortOrder.equals(CommonConstant.SORT_ORDER_ASC), sortField);
         Page<InterfaceInfo> interfaceInfoPage = interfaceInfoService.page(new Page<>(current, size), queryWrapper);
         return ResultUtils.success(interfaceInfoPage);
 //        long current = 1;

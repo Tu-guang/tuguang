@@ -90,6 +90,18 @@ public class UserController {
     }
 
     /**
+     * 用户信息
+     *
+     * @param request
+     * @return
+     */
+    @GetMapping("/info")
+    public BaseResponse<User> userInfo(HttpServletRequest request) {
+        User user = userService.getLoginUser(request);
+        return ResultUtils.success(user);
+    }
+
+    /**
      * 用户注销
      *
      * @param request
