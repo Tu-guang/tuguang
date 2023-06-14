@@ -22,9 +22,9 @@ public class UserInterfaceInfoServiceImpl extends ServiceImpl<UserInterfaceInfoM
         if (userInterfaceInfo == null) {
             throw new BusinessException(ErrorCode.PARAMS_ERROR);
         }
-        // 创建时，所有参数必须非空
+//        // 创建时，所有参数必须非空
         if (add) {
-            if (userInterfaceInfo.getInterfaceInfoId() <= 0 || userInterfaceInfo.getUserId() <= 0) {
+            if (userInterfaceInfo.getInterfaceinfoId() <= 0 || userInterfaceInfo.getUserId() <= 0) {
                 throw new BusinessException(ErrorCode.PARAMS_ERROR, "接口或用户不存在");
             }
         }

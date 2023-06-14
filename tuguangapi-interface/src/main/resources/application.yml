@@ -1,0 +1,10 @@
+# @author
+# @from
+server:
+  port: 8123
+  servlet:
+    context-path: /api
+yuapi:
+  client:
+    access-key: yupi
+    secret-key: abcdefgh

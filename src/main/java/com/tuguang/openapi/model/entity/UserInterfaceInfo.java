@@ -24,22 +24,22 @@ public class UserInterfaceInfo implements Serializable {
     /**
      * 调用用户 id
      */
-    private Long userid;
+    private Long userId;
 
     /**
      * 接口 id
      */
-    private Long interfaceinfoid;
+    private Long interfaceinfoId;
 
     /**
      * 总调用次数
      */
-    private Integer totalnum;
+    private Integer totalNum;
 
     /**
      * 剩余调用次数
      */
-    private Integer leftnum;
+    private Integer leftNum;
 
     /**
      * 0-正常，1-禁用
@@ -49,17 +49,17 @@ public class UserInterfaceInfo implements Serializable {
     /**
      * 创建时间
      */
-    private Date createtime;
+    private Date createTime;
 
     /**
      * 更新时间
      */
-    private Date updatetime;
+    private Date updateTime;
 
     /**
      * 是否删除(0-未删, 1-已删)
      */
-    private Integer isdelete;
+    private Integer isDelete;
 
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;

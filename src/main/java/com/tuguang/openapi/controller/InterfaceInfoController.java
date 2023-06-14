@@ -1,8 +1,11 @@
 package com.tuguang.openapi.controller;
 
+import cn.hutool.json.JSON;
+import cn.hutool.json.JSONUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.plugins.pagination.PageDTO;
+import com.google.gson.Gson;
 import com.tuguang.openapi.annotation.AuthCheck;
 import com.tuguang.openapi.common.*;
 import com.tuguang.openapi.constant.CommonConstant;
@@ -18,6 +21,8 @@ import com.tuguang.openapi.model.entity.InterfaceInfo;
 import com.tuguang.openapi.model.entity.User;
 import com.tuguang.openapi.service.InterfaceInfoService;
 import com.tuguang.openapi.service.UserService;
+import com.tuguang.tuguangapiclientsdk.client.ApiClient;
+import com.tuguang.tuguangapiclientsdk.model.Params;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
@@ -351,16 +356,14 @@ public class InterfaceInfoController {
         if (oldInterfaceInfo.getStatus() == InterfaceInfoStatusEnum.OFFLINE.getValue()) {
             throw new BusinessException(ErrorCode.PARAMS_ERROR, "接口已关闭");
         }
-//        User loginUser = userService.getLoginUser(request);
-//        String accessKey = loginUser.getAccessKey();
-//        String secretKey = loginUser.getSecretKey();
-//        YuApiClient tempClient = new YuApiClient(accessKey, secretKey);
-//        Gson gson = new Gson();
-//        com.yupi.yuapiclientsdk.model.User user = gson.fromJson(userRequestParams, com.yupi.yuapiclientsdk.model.User.class);
-//        String usernameByPost = tempClient.getUsernameByPost(user);
-//        return ResultUtils.success(usernameByPost);
-        return ResultUtils.success("");
+        User loginUser = userService.getLoginUser(request);
+        String accessKey = loginUser.getAccessKey();
+        String secretKey = loginUser.getSecretKey();
+        ApiClient tempClient = new ApiClient(accessKey, secretKey);
+        Gson gson = new Gson();
+        com.tuguang.tuguangapiclientsdk.model.Params params = gson.fromJson(userRequestParams, com.tuguang.tuguangapiclientsdk.model.Params.class);
+        String byPost = tempClient.ByPost(params,oldInterfaceInfo.getUrl(),JSONUtil.toJsonStr(oldInterfaceInfo.getRequestHeader()));
+        return ResultUtils.success(byPost);
     }
-
     // endregion
 }
