@@ -1,4 +1,4 @@
-package com.tuguang.apiinterface.aop;
+package com.tuguang.tuguangapiinterface.aop;
 
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 

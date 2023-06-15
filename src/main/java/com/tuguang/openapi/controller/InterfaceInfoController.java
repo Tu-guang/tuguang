@@ -361,9 +361,13 @@ public class InterfaceInfoController {
         String secretKey = loginUser.getSecretKey();
         ApiClient tempClient = new ApiClient(accessKey, secretKey);
         Gson gson = new Gson();
-        com.tuguang.tuguangapiclientsdk.model.Params params = gson.fromJson(userRequestParams, com.tuguang.tuguangapiclientsdk.model.Params.class);
-        String byPost = tempClient.ByPost(params,oldInterfaceInfo.getUrl(),JSONUtil.toJsonStr(oldInterfaceInfo.getRequestHeader()));
-        return ResultUtils.success(byPost);
+//        com.tuguang.tuguangapiclientsdk.model.Params params = gson.fromJson(userRequestParams, com.tuguang.tuguangapiclientsdk.model.Params.class);
+//        String byPost = tempClient.ByPost(params,oldInterfaceInfo.getUrl(),JSONUtil.toJsonStr(oldInterfaceInfo.getRequestHeader()));
+//        System.out.println("byPost:"+byPost);
+//        return ResultUtils.success(byPost);
+        com.tuguang.tuguangapiclientsdk.model.User user = gson.fromJson(userRequestParams, com.tuguang.tuguangapiclientsdk.model.User.class);
+        String usernameByPost = tempClient.getUsernameByPost(user);
+        return ResultUtils.success(usernameByPost);
     }
     // endregion
 }

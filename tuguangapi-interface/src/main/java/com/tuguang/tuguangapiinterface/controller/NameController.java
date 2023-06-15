@@ -1,4 +1,4 @@
-package com.tuguang.apiinterface.controller;
+package com.tuguang.tuguangapiinterface.controller;
 
 import com.tuguang.tuguangapiclientsdk.model.User;
 import org.springframework.web.bind.annotation.*;

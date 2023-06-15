@@ -1,13 +1,13 @@
-package com.tuguang.apiinterface;
+package com.tuguang.tuguangapiinterface;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class ApiInterfaceApplication {
+public class TuguangApiInterfaceApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(ApiInterfaceApplication.class, args);
+        SpringApplication.run(TuguangApiInterfaceApplication.class, args);
     }
 
 }
