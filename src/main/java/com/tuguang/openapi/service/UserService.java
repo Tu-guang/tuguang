@@ -1,7 +1,7 @@
 package com.tuguang.openapi.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.tuguang.openapi.model.entity.User;
+import com.tuguang.tuguangcommon.model.entity.User;
 
 import javax.servlet.http.HttpServletRequest;
 

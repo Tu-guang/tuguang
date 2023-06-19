@@ -33,5 +33,15 @@ mybatis-plus:
       logic-not-delete-value: 0 # 逻辑未删除值(默认为 0)
 tuguang:
   client:
-    access-key: tuguang
-    secret-key: abcdefgh
+    access-key: tuguang1
+    secret-key: abcdefgh1
+
+dubbo:
+  application:
+    name: dubbo-springboot-demo-provider
+  protocol:
+    name: dubbo
+    port: -1
+  registry:
+    id: nacos-registry
+    address: nacos://127.0.0.1:8848

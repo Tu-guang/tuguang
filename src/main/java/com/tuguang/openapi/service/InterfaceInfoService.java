@@ -1,7 +1,7 @@
 package com.tuguang.openapi.service;
 
-import com.tuguang.openapi.model.entity.InterfaceInfo;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.tuguang.tuguangcommon.model.entity.InterfaceInfo;
 
 /**
 * @author 陈

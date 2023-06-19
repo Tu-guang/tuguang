@@ -7,10 +7,10 @@ import com.tuguang.openapi.common.ErrorCode;
 import com.tuguang.openapi.common.ResultUtils;
 import com.tuguang.openapi.exception.BusinessException;
 import com.tuguang.openapi.mapper.UserInterfaceInfoMapper;
-import com.tuguang.openapi.model.entity.InterfaceInfo;
-import com.tuguang.openapi.model.entity.UserInterfaceInfo;
 import com.tuguang.openapi.model.vo.InterfaceInfoVO;
 import com.tuguang.openapi.service.InterfaceInfoService;
+import com.tuguang.tuguangcommon.model.entity.InterfaceInfo;
+import com.tuguang.tuguangcommon.model.entity.UserInterfaceInfo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.util.CollectionUtils;
@@ -44,7 +44,7 @@ public class AnalysisController {
     public BaseResponse<Object> listTopInvokeInterfaceInfo() {
         List<UserInterfaceInfo> userInterfaceInfoList = userInterfaceInfoMapper.listTopInvokeInterfaceInfo(3);
         Map<Long, List<UserInterfaceInfo>> interfaceInfoIdObjMap = userInterfaceInfoList.stream()
-                .collect(Collectors.groupingBy(UserInterfaceInfo::getInterfaceinfoId));
+                .collect(Collectors.groupingBy(UserInterfaceInfo::getInterfaceInfoId));
         QueryWrapper<InterfaceInfo> queryWrapper = new QueryWrapper<>();
         queryWrapper.in("id", interfaceInfoIdObjMap.keySet());
         List<InterfaceInfo> list = interfaceInfoService.list(queryWrapper);

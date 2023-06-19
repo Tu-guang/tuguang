@@ -44,12 +44,12 @@ public class InterfaceInfo implements Serializable {
     /**
      * 相应头
      */
-    private String responeHeader;
+    private String responseHeader;
 
     /**
      * 参数
      */
-    private String params;
+    private String requestParams;
 
     /**
      * 接口状态 (0-关闭，1-开启)

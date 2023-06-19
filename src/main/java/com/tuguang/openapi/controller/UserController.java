@@ -15,7 +15,6 @@ import com.tuguang.openapi.model.dto.user.UserLoginRequest;
 import com.tuguang.openapi.model.dto.user.UserQueryRequest;
 import com.tuguang.openapi.model.dto.user.UserRegisterRequest;
 import com.tuguang.openapi.model.dto.user.UserUpdateRequest;
-import com.tuguang.openapi.model.entity.User;
 import com.tuguang.openapi.model.vo.UserVO;
 import com.tuguang.openapi.service.UserService;
 
@@ -24,6 +23,7 @@ import java.util.stream.Collectors;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
+import com.tuguang.tuguangcommon.model.entity.User;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.web.bind.annotation.GetMapping;

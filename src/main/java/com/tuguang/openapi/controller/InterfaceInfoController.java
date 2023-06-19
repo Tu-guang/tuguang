@@ -1,7 +1,5 @@
 package com.tuguang.openapi.controller;
 
-import cn.hutool.json.JSON;
-import cn.hutool.json.JSONUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.plugins.pagination.PageDTO;
@@ -17,12 +15,11 @@ import com.tuguang.openapi.model.enums.InterfaceInfoStatusEnum;
 import com.tuguang.openapi.model.vo.InterfaceInfoPageVO;
 import com.tuguang.openapi.model.dto.interfaceInfo.InterfaceInfoQueryRequest;
 import com.tuguang.openapi.model.dto.interfaceInfo.InterfaceInfoUpdateRequest;
-import com.tuguang.openapi.model.entity.InterfaceInfo;
-import com.tuguang.openapi.model.entity.User;
 import com.tuguang.openapi.service.InterfaceInfoService;
 import com.tuguang.openapi.service.UserService;
 import com.tuguang.tuguangapiclientsdk.client.ApiClient;
-import com.tuguang.tuguangapiclientsdk.model.Params;
+import com.tuguang.tuguangcommon.model.entity.InterfaceInfo;
+import com.tuguang.tuguangcommon.model.entity.User;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;

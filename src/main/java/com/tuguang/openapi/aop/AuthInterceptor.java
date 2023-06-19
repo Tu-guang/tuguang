@@ -4,13 +4,14 @@ import com.baomidou.mybatisplus.core.toolkit.CollectionUtils;
 import com.tuguang.openapi.annotation.AuthCheck;
 import com.tuguang.openapi.common.ErrorCode;
 import com.tuguang.openapi.exception.BusinessException;
-import com.tuguang.openapi.model.entity.User;
 import com.tuguang.openapi.service.UserService;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+
+import com.tuguang.tuguangcommon.model.entity.User;
 import org.apache.commons.lang3.StringUtils;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;

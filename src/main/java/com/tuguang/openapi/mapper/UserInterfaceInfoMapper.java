@@ -1,7 +1,8 @@
 package com.tuguang.openapi.mapper;
 
-import com.tuguang.openapi.model.entity.UserInterfaceInfo;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.tuguang.tuguangcommon.model.entity.UserInterfaceInfo;
+
 import java.util.List;
 
 /**

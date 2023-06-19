@@ -4,9 +4,9 @@ import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.tuguang.openapi.common.ErrorCode;
 import com.tuguang.openapi.exception.BusinessException;
-import com.tuguang.openapi.model.entity.UserInterfaceInfo;
 import com.tuguang.openapi.service.UserInterfaceInfoService;
 import com.tuguang.openapi.mapper.UserInterfaceInfoMapper;
+import com.tuguang.tuguangcommon.model.entity.UserInterfaceInfo;
 import org.springframework.stereotype.Service;
 
 /**
@@ -24,7 +24,7 @@ public class UserInterfaceInfoServiceImpl extends ServiceImpl<UserInterfaceInfoM
         }
 //        // 创建时，所有参数必须非空
         if (add) {
-            if (userInterfaceInfo.getInterfaceinfoId() <= 0 || userInterfaceInfo.getUserId() <= 0) {
+            if (userInterfaceInfo.getInterfaceInfoId() <= 0 || userInterfaceInfo.getUserId() <= 0) {
                 throw new BusinessException(ErrorCode.PARAMS_ERROR, "接口或用户不存在");
             }
         }

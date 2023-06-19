@@ -6,5 +6,5 @@ server:
     context-path: /api
 yuapi:
   client:
-    access-key: yupi
+    access-key: tuguang
     secret-key: abcdefgh

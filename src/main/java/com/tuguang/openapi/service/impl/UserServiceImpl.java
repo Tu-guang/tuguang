@@ -10,12 +10,12 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.tuguang.openapi.common.ErrorCode;
 import com.tuguang.openapi.exception.BusinessException;
 import com.tuguang.openapi.mapper.UserMapper;
-import com.tuguang.openapi.model.entity.User;
 import com.tuguang.openapi.service.UserService;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
+import com.tuguang.tuguangcommon.model.entity.User;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;

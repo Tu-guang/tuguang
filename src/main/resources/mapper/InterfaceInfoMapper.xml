@@ -4,14 +4,14 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.tuguang.openapi.mapper.InterfaceInfoMapper">
 
-    <resultMap id="BaseResultMap" type="com.tuguang.openapi.model.entity.InterfaceInfo">
+    <resultMap id="BaseResultMap" type="com.tuguang.tuguangcommon.model.entity.InterfaceInfo">
             <id property="id" column="id" jdbcType="BIGINT"/>
             <result property="name" column="name" jdbcType="VARCHAR"/>
             <result property="description" column="description" jdbcType="VARCHAR"/>
             <result property="url" column="url" jdbcType="VARCHAR"/>
             <result property="requestHeader" column="requestHeader" jdbcType="VARCHAR"/>
-            <result property="responeHeader" column="responeHeader" jdbcType="VARCHAR"/>
-            <result property="params" column="params" jdbcType="VARCHAR"/>
+            <result property="responseHeader" column="responeHeader" jdbcType="VARCHAR"/>
+            <result property="requestParams" column="params" jdbcType="VARCHAR"/>
             <result property="status" column="status" jdbcType="INTEGER"/>
             <result property="method" column="method" jdbcType="VARCHAR"/>
             <result property="userId" column="userId" jdbcType="BIGINT"/>

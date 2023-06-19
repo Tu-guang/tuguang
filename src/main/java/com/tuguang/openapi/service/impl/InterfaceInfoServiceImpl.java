@@ -3,9 +3,9 @@ package com.tuguang.openapi.service.impl;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.tuguang.openapi.common.ErrorCode;
 import com.tuguang.openapi.exception.BusinessException;
-import com.tuguang.openapi.model.entity.InterfaceInfo;
 import com.tuguang.openapi.service.InterfaceInfoService;
 import com.tuguang.openapi.mapper.InterfaceInfoMapper;
+import com.tuguang.tuguangcommon.model.entity.InterfaceInfo;
 import org.springframework.stereotype.Service;
 
 /**
