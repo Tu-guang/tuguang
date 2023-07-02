@@ -1,5 +1,6 @@
 package com.tuguang.openapi.controller;
 
+import cn.hutool.json.JSONUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.plugins.pagination.PageDTO;
@@ -24,10 +25,11 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.web.bind.annotation.*;
-
+import com.tuguang.openapi.util.getIP;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 /**
@@ -204,7 +206,7 @@ public class InterfaceInfoController {
         Page<InterfaceInfo> interfaceInfoPages = interfaceInfoService.page(new Page<>(current, size), queryWrapper);
 
         //分页拷贝
-        Page<InterfaceInfoPageVO> interfaceInfoVOPage=new PageDTO<>(interfaceInfoPages.getCurrent(),interfaceInfoPages.getSize(),interfaceInfoPages.getTotal());
+        Page<InterfaceInfoPageVO> interfaceInfoVOPage = new PageDTO<>(interfaceInfoPages.getCurrent(), interfaceInfoPages.getSize(), interfaceInfoPages.getTotal());
         List<InterfaceInfoPageVO> InterfaceInfoPageList = interfaceInfoPages.getRecords().stream().map(interfaceInfoPage -> {
             InterfaceInfoPageVO interfaceInfoPageVO = new InterfaceInfoPageVO();
             BeanUtils.copyProperties(interfaceInfoPage, interfaceInfoPageVO);
@@ -358,13 +360,20 @@ public class InterfaceInfoController {
         String secretKey = loginUser.getSecretKey();
         ApiClient tempClient = new ApiClient(accessKey, secretKey);
         Gson gson = new Gson();
-//        com.tuguang.tuguangapiclientsdk.model.Params params = gson.fromJson(userRequestParams, com.tuguang.tuguangapiclientsdk.model.Params.class);
-//        String byPost = tempClient.ByPost(params,oldInterfaceInfo.getUrl(),JSONUtil.toJsonStr(oldInterfaceInfo.getRequestHeader()));
-//        System.out.println("byPost:"+byPost);
-//        return ResultUtils.success(byPost);
-        com.tuguang.tuguangapiclientsdk.model.User user = gson.fromJson(userRequestParams, com.tuguang.tuguangapiclientsdk.model.User.class);
-        String usernameByPost = tempClient.getUsernameByPost(user);
-        return ResultUtils.success(usernameByPost);
+        com.tuguang.tuguangapiclientsdk.model.Params params = gson.fromJson(userRequestParams, com.tuguang.tuguangapiclientsdk.model.Params.class);
+        String url = oldInterfaceInfo.getUrl();
+        if (Objects.equals(oldInterfaceInfo.getMethod(), "POST")) {
+            String byPost = tempClient.ByPost(params, url.replace(getIP.matchIPorUrl(url),""), JSONUtil.toJsonStr(oldInterfaceInfo.getRequestHeader()));
+            System.out.println("byPost:" + byPost);
+            return ResultUtils.success(byPost);
+        } else {
+            String byGet = tempClient.ByGet(params, url.replace(getIP.matchIPorUrl(url),""), JSONUtil.toJsonStr(oldInterfaceInfo.getRequestHeader()));
+            System.out.println("byGet:" + byGet);
+            return ResultUtils.success(byGet);
+        }
+//        com.tuguang.tuguangapiclientsdk.model.User user = gson.fromJson(userRequestParams, com.tuguang.tuguangapiclientsdk.model.User.class);
+//        String usernameByPost = tempClient.getUsernameByPost(user);
+//        return ResultUtils.success(usernameByPost);
     }
     // endregion
 }

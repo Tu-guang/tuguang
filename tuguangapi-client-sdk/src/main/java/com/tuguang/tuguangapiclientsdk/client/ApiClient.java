@@ -88,8 +88,20 @@ public class ApiClient {
 
     public String ByPost(Params params, String url, String header) {
         String json = JSONUtil.toJsonStr(params);
-        HttpResponse httpResponse = HttpRequest.post(url)
-                .addHeaders(getHeaderMaps(json, header))
+        HttpResponse httpResponse = HttpRequest.post(GATEWAY_HOST+url)
+                .addHeaders(getHeaderMap(json))
+                .body(json)
+                .execute();
+        System.out.println(httpResponse.getStatus());
+        String result = httpResponse.body();
+        System.out.println(result);
+        return result;
+    }
+
+    public String ByGet(Params params, String url, String header) {
+        String json = JSONUtil.toJsonStr(params);
+        HttpResponse httpResponse = HttpRequest.get(GATEWAY_HOST+url)
+                .addHeaders(getHeaderMap(json))
                 .body(json)
                 .execute();
         System.out.println(httpResponse.getStatus());
